@@ -1,2 +1,5 @@
-# desarrollo_orientado_a_servicios_1
+# Desarrollo Orientado a Servicios
+
 Ejemplo de Desarrollo Orientado a Servicios con Angular y Laravel...
+<br />
+Este proyecto tiene por objetivo <strong>hola</strong>
