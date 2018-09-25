@@ -33,5 +33,7 @@ Route::get('categorias/delete/{id}', 'CategoriasController@delete')->name('categ
 //Productos
 Route::get('productos', 'ProductosController@index')->name('productos_index');
 Route::get('productos/add', 'ProductosController@add')->name('productos_add');
+Route::post('productos/add', 'ProductosController@add_post')->name('productos_add_post');
 Route::get('productos/edit/{id}', 'ProductosController@edit')->name('productos_edit');
+Route::post('productos/edit/{id}', 'ProductosController@edit_post')->name('categorias_edit_post');
 Route::get('productos/delete/{id}', 'ProductosController@delete')->name('productos_delete');

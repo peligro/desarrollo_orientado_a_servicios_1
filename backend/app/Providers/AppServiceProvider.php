@@ -17,6 +17,17 @@ class AppServiceProvider extends ServiceProvider
          
         //ésto es para que funcionen las migraciones
         Schema::defaultStringLength(191);
+        Validator::extend('valida_select', function ($attribute, $value, $parameters, $validator) 
+            {
+                $valor=$value;
+                if($valor==0)
+                    {
+                        return false;
+                    }else
+                    {
+                        return true;
+                    }
+            });
         Validator::extend('valida_rut', function ($attribute, $value, $parameters, $validator) {
             $r=$value;
             if((!$r) or (is_array($r)))
