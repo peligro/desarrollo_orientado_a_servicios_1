@@ -26,7 +26,9 @@ Route::get('usuarios/delete/{id}', 'UsuariosController@delete')->name('usuarios_
 //Categorías
 Route::get('categorias', 'CategoriasController@index')->name('categorias_index');
 Route::get('categorias/add', 'CategoriasController@add')->name('categorias_add');
+Route::post('categorias/add', 'CategoriasController@add_post')->name('categorias_add_post');
 Route::get('categorias/edit/{id}', 'CategoriasController@edit')->name('categorias_edit');
+Route::post('categorias/edit/{id}', 'CategoriasController@edit_post')->name('categorias_edit_post');
 Route::get('categorias/delete/{id}', 'CategoriasController@delete')->name('categorias_delete');
 //Productos
 Route::get('productos', 'ProductosController@index')->name('productos_index');

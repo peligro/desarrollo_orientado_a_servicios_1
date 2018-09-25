@@ -92,7 +92,7 @@ $this->validate
         (
         	$request,
         	[
-        		'nombre'=>'required|max:255',
+        		'nombre'=>'required|max:255|unique:users,email,'.$id,
         		'correo'=>'required|email',
         		'telefono'=>'required|max:255',
         		'rut'=>'required|valida_rut',
@@ -102,6 +102,7 @@ $this->validate
         		'nombre.required'=>'El campo Nombre está vacío',
         		'correo.required'=>'El campo E-Mail está vacío',
         		'correo.email'=>'El E-Mail ingresado no tiene un formato válido',
+        		'correo.unique'=>'El E-Mail ingresado ya está siendo usado por otro usuario',
         		'telefono.required'=>'El campo Teléfono está vacío',
         		'rut.required'=>'El campo RUT está vacío',
         		'rut.valida_rut'=>'El RUT ingresado no es válido',
