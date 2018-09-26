@@ -8,31 +8,25 @@ use App\User as User;
 use Illuminate\Http\Request;
 class UsuariosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('acceso');
+    }
     public function index()
     {
-        if (Auth::check()) {
-        	$datos = Usuarios::orderBy('id', 'desc')->paginate(10);
-            return view('usuarios.index',compact('datos'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        $datos = Usuarios::orderBy('id', 'desc')->paginate(10);
+        return view('usuarios.index',compact('datos'));
+        
     }
     public function add()
     {
-        if (Auth::check()) {
-        	return view('usuarios.add');
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        return view('usuarios.add');
     }
     public function add_post(Request $request)
     {
-        if (Auth::check()) {
-        	
-        		//se crea el usuarios
-$this->validate
+        
+        //se crea el usuarios
+        $this->validate
         (
         	$request,
         	[
@@ -67,27 +61,17 @@ $this->validate
         $request->session()->flash('css', 'success');
         $request->session()->flash('mensaje', 'Se ha agregado el registro exitosamente ');
         return redirect('/usuarios');
-        		//fin de se crea el usuario
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        //fin de se crea el usuario
+        
     }
     public function edit($id)
     {
-        if (Auth::check()) {
-        	$datos = Usuarios::find($id);
-        	return view('usuarios.edit',compact('datos'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        $datos = Usuarios::find($id);
+        return view('usuarios.edit',compact('datos'));
     }
     public function edit_post(Request $request,$id)
     {
-    	if (Auth::check()) {
-        	
-        		//se crea el usuarios
+    	//se crea el usuarios
     		$this->validate
         (
         	$request,
@@ -131,10 +115,6 @@ $this->validate
         $request->session()->flash('css', 'success');
         $request->session()->flash('mensaje', 'Se ha modificado el registro exitosamente ');
         return redirect('/usuarios');
-    		//fin de se crea el usuario
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        //fin de se crea el usuario
     }
 }

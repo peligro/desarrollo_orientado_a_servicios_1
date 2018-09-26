@@ -7,35 +7,22 @@ use App\Categorias;
 use Illuminate\Http\Request;
 class CategoriasController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('acceso');
+    }
     public function index()
     {
-        if (Auth::check()) 
-        {
-            $datos = Categorias::orderBy('id', 'desc')->paginate(10);
-            return view('categorias.index',compact('datos'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        $datos = Categorias::orderBy('id', 'desc')->paginate(10);
+        return view('categorias.index',compact('datos'));
     }
     public function add()
     {
-        if (Auth::check()) 
-        {
-            return view('categorias.add');
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        return view('categorias.add');
     }
     public function add_post(Request $request)
     {
-        if (Auth::check()) 
-        {
-            //se crea
+        //se crea
         $this->validate
         (
             $request,
@@ -55,27 +42,16 @@ class CategoriasController extends Controller
         $request->session()->flash('css', 'success');
         $request->session()->flash('mensaje', 'Se ha agregado el registro exitosamente ');
         return redirect('/categorias');
-                //fin de se crea
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        //fin de se crea 
     }
     public function edit($id)
     {
-        if (Auth::check()) 
-        {
-            $datos = Categorias::find($id);
-            return view('categorias.edit',compact('datos'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        $datos = Categorias::find($id);
+        return view('categorias.edit',compact('datos'));
     }
     public function edit_post(Request $request,$id)
     {
-        if (Auth::check()) {
+        
                 $this->validate
                 (
                     $request,
@@ -94,14 +70,11 @@ class CategoriasController extends Controller
                 $request->session()->flash('css', 'success');
                 $request->session()->flash('mensaje', 'Se ha modificado el registro exitosamente ');
                 return redirect('/categorias');
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        
     }
     public function delete(Request $request,$id)
     {
-        if (Auth::check()) {
+        
               if(Categorias::find($id) and is_numeric($id))
               {
                 if(Categorias::all())
@@ -124,9 +97,6 @@ class CategoriasController extends Controller
               }
               
               
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        
     }
 }

@@ -8,36 +8,23 @@ use App\Productos;
 use Illuminate\Http\Request;
 class ProductosController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('acceso');
+    }
     public function index()
     {
-        if (Auth::check()) 
-        {
-            $datos = Productos::orderBy('id', 'desc')->paginate(10);
-            return view('productos.index',compact('datos'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        $datos = Productos::orderBy('id', 'desc')->paginate(10);
+        return view('productos.index',compact('datos'));
     }
     public function add()
     {
-        if (Auth::check()) 
-        {
-            $categorias=Categorias::all();
-            return view('productos.add',compact('categorias'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        $categorias=Categorias::all();
+        return view('productos.add',compact('categorias'));
     }
     public function add_post(Request $request)
     {
-        if (Auth::check()) 
-        {
-            //se crea
+        //se crea
         $this->validate
         (
             $request,
@@ -67,28 +54,17 @@ class ProductosController extends Controller
         $request->session()->flash('css', 'success');
         $request->session()->flash('mensaje', 'Se ha agregado el registro exitosamente ');
         return redirect('/productos');
-                //fin de se crea
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        //fin de se crea
     }
     public function edit($id)
     {
-        if (Auth::check()) 
-        {
-            $datos = Productos::find($id);
-            $categorias=Categorias::all();
-            return view('productos.edit',compact('datos','categorias'));
-        }else
-        {
-            return redirect('/acceso/login');
-        }
-
+        $datos = Productos::find($id);
+        $categorias=Categorias::all();
+        return view('productos.edit',compact('datos','categorias'));
     }
     public function edit_post(Request $request,$id)
     {
-        if (Auth::check()) {
+        
                 $this->validate
                 (
                     $request,
@@ -114,14 +90,11 @@ class ProductosController extends Controller
                 $request->session()->flash('css', 'success');
                 $request->session()->flash('mensaje', 'Se ha modificado el registro exitosamente ');
                 return redirect('/productos');
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        
     }
     public function delete(Request $request,$id)
     {
-        if (Auth::check()) {
+        
               if(Productos::find($id) and is_numeric($id))
               {
                 $arreglo = Productos::find($id);
@@ -134,11 +107,5 @@ class ProductosController extends Controller
               {
                 abort(404);
               }
-              
-              
-        }else
-        {
-            return redirect('/acceso/login');
-        }
     }
 }

@@ -37,11 +37,11 @@
         </div>
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" class="form-control" />
+            <input type="text" name="nombre" class="form-control" value="{{ old('nombre') }}" />
         </div>
         <div class="form-group">
             <label for="nombre">Precio</label>
-            <input type="text" name="precio" class="form-control" onkeypress="return soloNumeros(event)" />
+            <input type="text" name="precio" class="form-control" onkeypress="return soloNumeros(event)" value="{{ old('precio') }}" />
         </div>
         <hr />
         <input type="submit" value="Enviar" class="btn btn-default" />

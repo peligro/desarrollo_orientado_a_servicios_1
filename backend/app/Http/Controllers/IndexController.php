@@ -5,14 +5,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
+    public function __construct()
+	{
+	    $this->middleware('acceso');
+	}
     public function index()
     {
-        if (Auth::check()) {
-            return view('index.index');
-        }else
-        {
-            return redirect('/acceso/login');
-        }
+        return view('index.index');
+       
     }
     
 }
